@@ -8,7 +8,7 @@ int main(int argc, char *argv[]) {
         return -1;
     }
 
-    w.EventLoop();
+    w.Run();
 
     w.Close();
     

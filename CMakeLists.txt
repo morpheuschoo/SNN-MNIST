@@ -11,6 +11,7 @@ add_executable(
     source/neuralnetwork.cpp
     source/parser.cpp
     source/window.cpp
+    source/text.cpp
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/headers)
@@ -18,6 +19,6 @@ target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/h
 # include and link SDL2
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/SDL2/include)
 target_link_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/SDL2/lib)
-target_link_libraries(${PROJECT_NAME} mingw32 SDL2main SDL2)
+target_link_libraries(${PROJECT_NAME} mingw32 SDL2main SDL2 SDL2_ttf)
 
-file(COPY datasets DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})

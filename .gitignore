@@ -1,2 +1,2 @@
 build/*
-!build/SDL2.dll
+!build/*.dll
