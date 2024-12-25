@@ -1,4 +1,4 @@
-datasets/* filter=lfs diff=lfs merge=lfs -text
+assets/data/* filter=lfs diff=lfs merge=lfs -text
 SDL2/** linguist-documentation
 assets/data/mnist_train.csv filter=lfs diff=lfs merge=lfs -text
 build/SDL2_ttf.dll filter=lfs diff=lfs merge=lfs -text
