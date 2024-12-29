@@ -1,6 +1,6 @@
 #include "window.hpp"
 
-Window::Window() {
+Window::Window() : numberDisplay(renderer, WINDOW_WIDTH / 2 - 14 * pixelSize, WINDOW_HEIGHT / 2 - 14 * pixelSize, pixelSize) {
     window = nullptr;
     renderer = nullptr;
 }
@@ -25,15 +25,19 @@ bool Window::Init() {
         return false;
     }
 
-    if(!text.LoadFont("arial", 50)) {
+    if(TTF_Init() < 0) {
+        std::cout << "SDL_TTF could not initialise: " << TTF_GetError() << std::endl;
         return false;
     }
 
-    text.LinkRenderer(renderer);
-    text.WriteText("HELLO", SDL_Color{255, 255, 255}, "arial", 50);
-    text.SetPosition(100, 100);
-
     return true;
+}
+
+void Window::RunSNN() {
+    NN.InitTrainIO("assets/data/small_mnist_train.csv", "assets/data/small_mnist_test.csv");
+    NN.InitNodes({784, 100, 10});
+    NN.Train(1);
+    numberDisplay.PairNeuralNetworkVariables(NN);
 }
 
 void Window::Run() {
@@ -45,6 +49,14 @@ void Window::Run() {
             if(e.type == SDL_QUIT) {
                 RUNNING = false;
             }
+            if(e.type == SDL_KEYDOWN) {
+                if(e.key.keysym.sym == SDLK_RIGHT) {
+                    numberDisplay.Increment();
+                }
+                if(e.key.keysym.sym == SDLK_LEFT) {
+                    numberDisplay.Decrement();
+                }
+            }
         }
 
         // set background to black
@@ -52,8 +64,8 @@ void Window::Run() {
         SDL_RenderClear(renderer);
 
         // draw
-        text.Render();
-        
+        numberDisplay.Render();
+
         // display drawing
         SDL_RenderPresent(renderer);
     }
@@ -63,5 +75,7 @@ void Window::Close() {
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
     SDL_Quit();
-    text.Close();
+    numberDisplay.Close();
+    Text::CloseFonts();
+    TTF_Quit();
 }

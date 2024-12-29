@@ -1,19 +1,9 @@
 #include "text.hpp"
 
 std::map<std::string, TTF_Font*> Text::mapFonts;
-bool Text::TTF_INIT = false;
-bool Text::TTF_DESTROYED = false;
 
-Text::Text() : textRect{0, 0, 0, 0} {
-    // Ensures that TTF_Init runs once
-    if(!TTF_INIT) {
-        if(TTF_Init() < 0) {
-            std::cout << "SDL_ttf could not initialise: " << TTF_GetError() << std::endl;
-        }
-        TTF_INIT = true;
-    }
-
-    renderer = nullptr;
+Text::Text(SDL_Renderer *renderer) : textRect{0, 0, 0, 0} {
+    this->renderer = renderer;
     textTexture = nullptr;
 }
 
@@ -25,16 +15,7 @@ bool Text::LoadFont(const std::string &fontName, int fontSize) {
         return false;
     }
     mapFonts[fontName + std::to_string(fontSize)] = font;
-    
-    for(const auto &i : mapFonts) {
-        std::cout << i.first << " " << i.second << std::endl;
-    }
-    
     return true;
-}
-
-void Text::LinkRenderer(SDL_Renderer *renderer) {
-    this->renderer = renderer;
 }
 
 bool Text::WriteText(const std::string &text, SDL_Color color, const std::string &fontName, int fontSize) {
@@ -71,12 +52,13 @@ void Text::Render() {
     SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
 }
 
-void Text::Close() {
-    SDL_DestroyTexture(textTexture);
-    if(!TTF_DESTROYED) {
-        for(auto &i : mapFonts) {
-            TTF_CloseFont(i.second);
-        }
-        TTF_Quit();
+void Text::CloseFonts() {
+    for(auto &i : mapFonts) {
+        TTF_CloseFont(i.second);
     }
+    mapFonts.clear();
+}
+
+void Text::CloseTexture() {
+    SDL_DestroyTexture(textTexture);
 }

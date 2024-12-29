@@ -12,6 +12,7 @@ add_executable(
     source/parser.cpp
     source/window.cpp
     source/text.cpp
+    source/numberdisplay.cpp
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/headers)

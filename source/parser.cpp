@@ -54,8 +54,11 @@ bool Parser::LoadTrainAndTest(const std::string &trainFilePath, const std::strin
     return true;
 }
 
-void Parser::LinkTrainAndTest(const std::vector<std::vector<double>> *&trainInput, const std::vector<std::vector<double>> *&trainOutput, 
-                              const std::vector<std::vector<double>> *&testInput, const std::vector<std::vector<double>> *&testOutput) {
+void Parser::LinkTrainAndTest(
+    const std::vector<std::vector<double>> *&trainInput, 
+    const std::vector<std::vector<double>> *&trainOutput, 
+    const std::vector<std::vector<double>> *&testInput, 
+    const std::vector<std::vector<double>> *&testOutput) {
     trainInput  = &(this->trainInput);
     trainOutput = &(this->trainOutput);
     testInput   = &(this->testInput);

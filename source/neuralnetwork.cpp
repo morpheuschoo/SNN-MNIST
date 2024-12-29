@@ -101,10 +101,13 @@ void NeuralNetwork::Test(bool isFinal) {
         totalCost += allLayers.back().Cost((*testOutputs)[testNo]);
 
         if(isFinal) {
-            std::cout << "\n";
-            std::cout << DisplayInput((*testInputs)[testNo]) << "\n";
-            std::cout << "EXPECTED OUTPUT: " << ObtainOutputValue((*testOutputs)[testNo]) << " ";
-            std::cout << "ACTUAL OUTPUT: " << ObtainOutputValue(actualOutput) << "\n";
+            // std::cout << "\n";
+            // std::cout << DisplayInput((*testInputs)[testNo]) << "\n";
+            // std::cout << "EXPECTED OUTPUT: " << ObtainOutputValue((*testOutputs)[testNo]) << " ";
+            // std::cout << "ACTUAL OUTPUT: " << ObtainOutputValue(actualOutput) << "\n";
+
+            processedTestExpectedOutputs.push_back(ObtainOutputValue((*testOutputs)[testNo]));
+            processedTestActualOutputs.push_back(ObtainOutputValue(actualOutput));
         }
     }
 
@@ -146,4 +149,16 @@ std::string NeuralNetwork::DisplayInput(const std::vector<double> &input) {
         display += "\n";
     }
     return display;
+}
+
+void NeuralNetwork::PairVariables(
+    const std::vector<std::vector<double>> *&testInputs,
+    const std::vector<size_t> *&processedTestExpectedOutputs,
+    const std::vector<size_t> *&processedTestActualOutputs,
+    size_t &NUMTESTSETS
+) {
+    testInputs = this->testInputs;
+    processedTestActualOutputs = &(this->processedTestActualOutputs);
+    processedTestExpectedOutputs = &(this->processedTestExpectedOutputs);
+    NUMTESTSETS = this->NUMTESTSETS;
 }

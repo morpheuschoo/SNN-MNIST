@@ -4,17 +4,22 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include <iostream>
-#include "text.hpp"
+#include <vector>
+#include "neuralnetwork.hpp"
+#include "numberdisplay.hpp"
 
 class Window{
 private:
-    constexpr static int WINDOW_WIDTH = 800;
-    constexpr static int WINDOW_HEIGHT = 600;
+    constexpr static int WINDOW_WIDTH = 1000;
+    constexpr static int WINDOW_HEIGHT = 1000;
+    constexpr static int pixelSize = 20;
 
     SDL_Window *window;
     SDL_Renderer *renderer;
 
-    Text text;
+    NeuralNetwork NN;
+
+    NumberDisplay numberDisplay;
 
 public:
     Window();
@@ -22,6 +27,8 @@ public:
     bool Init();
     void Run();
     void Close();
+
+    void RunSNN();
 
 };
 

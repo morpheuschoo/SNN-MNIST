@@ -10,22 +10,20 @@
 class Text {
 private:
     static std::map<std::string, TTF_Font*> mapFonts;
-    static bool TTF_INIT;
-    static bool TTF_DESTROYED;
 
     SDL_Renderer *renderer;
     SDL_Rect textRect;
     SDL_Texture *textTexture;
 
 public:
-    Text();
+    Text(SDL_Renderer *renderer);
 
-    bool LoadFont(const std::string &fontName, int fontSize);
-    void LinkRenderer(SDL_Renderer *renderer);
+    static bool LoadFont(const std::string &fontName, int fontSize);
     bool WriteText(const std::string &text, SDL_Color color, const std::string &fontName, int fontSize);    
     void SetPosition(int x, int y);
     void Render();
-    void Close();
+    static void CloseFonts();
+    void CloseTexture();
 };
 
 #endif

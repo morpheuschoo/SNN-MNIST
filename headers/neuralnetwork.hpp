@@ -23,6 +23,9 @@ private:
     size_t NUMTRAININGSETS;
     size_t NUMTESTSETS;
 
+    std::vector<size_t> processedTestExpectedOutputs;
+    std::vector<size_t> processedTestActualOutputs;
+
     std::vector<Layer> allLayers;
     size_t NUMLAYERS;
 
@@ -45,6 +48,13 @@ public:
 
     void Train(const size_t NUMEPOCHS);
 
+    void PairVariables(
+        const std::vector<std::vector<double>> *&testInputs,
+        const std::vector<size_t> *&processedTestExpectedOutputs,
+        const std::vector<size_t> *&processedTestActualOutputs,
+        size_t &NUMTESTSETS
+    );
+    
 };
 
 #endif

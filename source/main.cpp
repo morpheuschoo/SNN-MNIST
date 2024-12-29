@@ -1,4 +1,4 @@
-#include "neuralnetwork.hpp"
+// #include "neuralnetwork.hpp"
 #include "window.hpp"
 
 int main(int argc, char *argv[]) {
@@ -8,6 +8,7 @@ int main(int argc, char *argv[]) {
         return -1;
     }
 
+    w.RunSNN();
     w.Run();
 
     w.Close();

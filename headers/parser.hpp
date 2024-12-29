@@ -21,8 +21,12 @@ public:
     Parser();
 
     bool LoadTrainAndTest(const std::string &trainFilePath, const std::string &testFilePath);
-    void LinkTrainAndTest(const std::vector<std::vector<double>> *&trainInput, const std::vector<std::vector<double>> *&trainOutput, 
-                          const std::vector<std::vector<double>> *&testInput, const std::vector<std::vector<double>> *&testOutput) ;
+    void LinkTrainAndTest(
+        const std::vector<std::vector<double>> *&trainInput, 
+        const std::vector<std::vector<double>> *&trainOutput, 
+        const std::vector<std::vector<double>> *&testInput, 
+        const std::vector<std::vector<double>> *&testOutput
+    );
 };
 
 #endif
